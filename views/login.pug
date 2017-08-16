@@ -1,0 +1,60 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title Login
+    link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/stylesheets/login.css', rel='stylesheet')
+    link(rel='stylesheet', type='text/css', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', type='text/css', href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css')
+    script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(type='text/javascript', src='/javascripts/auth.js')
+    script(type='text/javascript', src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js') 
+  body
+    .container
+      #loginbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='margin-top:50px;')
+        .panel.panel-primary
+          .panel-heading
+            .panel-title Sign In
+          .panel-body(style='padding-top:30px')
+            form#loginform.form-horizontal(role='form')
+              .input-group(style='margin-bottom: 25px')
+                span.input-group-addon
+                  i.fa.fa-user.fa-fw
+                label.sr-only(for='inputUsername') Username
+                input#inputUsername.form-control(type='text', name='username', value='', placeholder='username', required='', autofocus='')
+              .input-group(style='margin-bottom: 25px')
+                span.input-group-addon
+                  i.fa.fa-key.fa-fw
+                label.sr-only(for='inputPassword') Password
+                input#inputPassword.form-control(type='password', name='password', placeholder='password', required='')
+              .form-group(style='margin-top:10px')
+                .col-sm-12.controls
+                  button.btn.btn-success(type='submit')
+                    | Login
+              .form-group
+                .col-md-12.control
+                  div(style='border-top: 1px solid#888; padding-top:15px; font-size:85%')
+                    | Don't have an account! 
+                    a(onclick="$('#loginbox').hide(); $('#signupbox').show()")
+                      | Sign Up Here
+      #signupbox.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2(style='display:none; margin-top:50px')
+        .panel.panel-primary
+          .panel-heading
+            .panel-title Sign Up
+            div(style='float:right; font-size: 85%; position: relative; top:-10px')
+              a(style='color:white;', onclick="$('#signupbox').hide(); $('#loginbox').show()") Sign In
+          .panel-body
+            form#signupform.form-horizontal(role='form')
+              .form-group
+                label.col-md-2.control-label(for='inputUsername') Username
+                .col-md-10
+                  input#inputUsername.form-control(type='text', name='username', placeholder='username', required='', autofocus='')
+              .form-group
+                label.col-md-2.control-label(for='inputPassword') Password
+                .col-md-10
+                  input#inputPassword.form-control(type='password', name='password', placeholder='password', required='')
+              .form-group
+                .col-md-offset-2.col-md-10
+                  button.btn.btn-primary(type='submit') Register

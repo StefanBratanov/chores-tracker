@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  nav.navbar.navbar-default.navbar-static-top
+    .container
+      .navbar-header
+        a.navbar-brand(href='#') Chores Tracker
+      span.navbar-right
+        p.navbar-text Logged in as #{username}
+        button#logout.btn.navbar-btn.btn-danger(type='button')
+          i.fa.fa-sign-out
+          |  Log Out
+  .container
+    .jumbotron
+      .container
+        h2.display-3 Chores Tracker
+        p.text-muted Keep track of everyday chores
+  .container(style='margin-bottom:3%;')
+    button#addChore.btn.btn-primary(type='button', style='margin-bottom:3%;')
+      i.fa.fa-plus(style='margin-right:1%;')
+      |  Add new chore
+    table#chorelist.display.table(cellspacing='0', width='100%')
+      thead
+        tr
+          th Chore Name
+          th Last completed
+          th Mark as complete
+          th Delete
+      tbody
+        each choreDetail in choreDetails
+          tr
+            td= choreDetail.chore
+            td= choreDetail.lastcompleted
+            td
+            td
