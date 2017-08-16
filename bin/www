@@ -59,6 +59,7 @@ app.set('port', port);
 var host = process.env.NODE_IP || 'localhost';
 
 app.listen(port, host);
+console.log('Will connect to ' + host + ':' + port);
 
 
 /**
@@ -134,4 +135,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
