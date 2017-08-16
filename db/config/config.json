@@ -19,7 +19,7 @@
     "username": "adminzehzxfz",
     "password": "e-tiBhK_Sb61",
     "database": "chorestracker",
-    "host": "127.0.0.1",
+    "host": "127.3.38.130",
     "port": 5432,
     "dialect": "postgres"
   }
