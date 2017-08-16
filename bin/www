@@ -57,7 +57,9 @@ var http = require('http');
 var port = normalizePort(process.env.NODE_PORT || '8080');
 app.set('port', port);
 var host = process.env.NODE_IP || 'localhost';
-app.set('host',host)
+
+app.listen(port, host);
+
 
 /**
  * Create HTTP server.
@@ -132,3 +134,4 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
