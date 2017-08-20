@@ -29,7 +29,14 @@ router.get('/', function(req, res, next) {
                     var startDate = moment(lastCompletedTime);
                     var endDate = moment();
                     var daysDiff = Math.abs(startDate.diff(endDate, 'days'));
-                    dataToBeUpdated.lastcompleted = daysDiff + ' days ago';
+                    if (daysDiff === 0) {
+                        var hoursDiff = Math.abs(startDate.diff(endDate, 'hours'));
+                        dataToBeUpdated.lastcompleted = '0 days ( ' + hoursDiff + 'h) ago';
+                    } else if (daysDiff === 1) {
+                         dataToBeUpdated.lastcompleted = daysDiff + ' day ago';
+                    } else {
+                        dataToBeUpdated.lastcompleted = daysDiff + ' days ago';
+                    }
                 }
                 return dataToBeUpdated
             })
@@ -54,7 +61,7 @@ router.get('/login', function(req, res, next) {
 
 //Necessary for OPENSHIFT
 router.get('/health', function(req, res, next) {
-    return res.status(200).json({status: "success"});
+    return res.status(200).json({ status: "success" });
 });
 
 module.exports = router;
