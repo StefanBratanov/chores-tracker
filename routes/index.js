@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
                     var daysDiff = Math.abs(startDate.diff(endDate, 'days'));
                     if (daysDiff === 0) {
                         var hoursDiff = Math.abs(startDate.diff(endDate, 'hours'));
-                        dataToBeUpdated.lastcompleted = '0 days ( ' + hoursDiff + 'h) ago';
+                        dataToBeUpdated.lastcompleted = '0 days (' + hoursDiff + 'h) ago';
                     } else if (daysDiff === 1) {
                          dataToBeUpdated.lastcompleted = daysDiff + ' day ago';
                     } else {
