@@ -23,12 +23,13 @@ $(document).ready(function() {
             { "orderable": false, "className": "dt-center", "targets": "_all" },
             {
                 "data": null,
-                "defaultContent": "<button type=\'button\' class=\'updateRow btn btn-success\'><span class=\'glyphicon glyphicon-ok\'></span></button>",
+                "defaultContent": "<button type=\'button\' class=\'updateRow btn btn-success\'><span class=\'fa fa-check\'></span></button>" +
+                    "<button type=\'button\' style=\'margin-left:1%;\' class=\'updateRowWithDatePicker btn btn-info\'><span class=\'fa fa-calendar\'></span></button>",
                 "targets": -2
             },
             {
                 "data": null,
-                "defaultContent": "<button type=\'button\' class=\'deleteRow btn btn-danger\'><span class=\'glyphicon glyphicon-trash\'></span></button>",
+                "defaultContent": "<button type=\'button\' class=\'deleteRow btn btn-danger\'><span class=\'fa fa-trash\'></span></button>",
                 "targets": -1
             }
         ]
@@ -103,27 +104,53 @@ $(document).ready(function() {
         });
     });
 
+    function completeChoreAjaxCall(choreName, completedDate) {
+        $.ajax({
+            method: "PUT",
+            url: "/api/chores",
+            data: { chore: choreName, lastcompleted: completedDate },
+            success: reloadPage,
+            error: errorCallback
+        });
+    }
+
     $('#chorelist tbody').on('click', 'button.updateRow.btn.btn-success', function() {
         var buttonDom = this;
         var trRow = $(buttonDom).parents('tr');
         var choreName = trRow.children().eq(0).text();
         bootbox.confirm({
             title: "Complete this chore?",
-            message: "Are you sure you have completed <b>" + choreName + "</b> ?",
+            message: "Are you sure you have completed <b>" + choreName + "</b>?",
             buttons: buttonsModal,
             callback: function(result) {
                 if (result === true) {
-                    $.ajax({
-                        method: "PUT",
-                        url: "/api/chores",
-                        data: { chore: choreName, lastcompleted: new Date() },
-                        success: reloadPage,
-                        error: errorCallback
-                    });
+                    completeChoreAjaxCall(choreName, new Date());
                 }
             }
         });
     });
+
+    $('.updateRowWithDatePicker').datepicker({
+            format: 'mm-dd-yyyy',
+            endDate: '+0d',
+            autoclose: true
+        })
+        .on('changeDate', function(ev) {
+            var completedDate = ev.date;
+            var buttonDom = this;
+            var trRow = $(buttonDom).parents('tr');
+            var choreName = trRow.children().eq(0).text();
+            bootbox.confirm({
+                title: "Complete this chore?",
+                message: "Are you sure you have completed <b>" + choreName + "</b> on " + moment(completedDate).format('Do MMM YYYY') + "?",
+                buttons: buttonsModal,
+                callback: function(result) {
+                    if (result === true) {
+                        completeChoreAjaxCall(choreName, completedDate);
+                    }
+                }
+            });
+        });
 
     $('#chorelist tbody').on('click', 'button.deleteRow.btn.btn-danger', function() {
         var buttonDom = this;
