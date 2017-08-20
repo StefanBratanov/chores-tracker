@@ -24,7 +24,7 @@ $(document).ready(function() {
             {
                 "data": null,
                 "defaultContent": "<button type=\'button\' class=\'updateRow btn btn-success\'><span class=\'fa fa-check\'></span></button>" +
-                    "<button type=\'button\' style=\'margin-left:1%;\' class=\'updateRowWithDatePicker btn btn-info\'><span class=\'fa fa-calendar\'></span></button>",
+                    "<button type=\'button\' style=\'margin-left:1%;\' data-provide=\'datepicker\' data-date-end-date=\'0d\' class=\'updateRowWithDatepicker btn btn-info\'><span class=\'fa fa-calendar\'></span></button>",
                 "targets": -2
             },
             {
@@ -130,12 +130,7 @@ $(document).ready(function() {
         });
     });
 
-    $('.updateRowWithDatePicker').datepicker({
-            format: 'mm-dd-yyyy',
-            endDate: '+0d',
-            autoclose: true
-        })
-        .on('changeDate', function(ev) {
+    $('#chorelist tbody').on('changeDate', 'button.updateRowWithDatepicker.btn.btn-info', function(ev) {
             var completedDate = ev.date;
             var buttonDom = this;
             var trRow = $(buttonDom).parents('tr');
